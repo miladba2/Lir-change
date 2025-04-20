@@ -30,7 +30,7 @@
 <body>
   <h2>محاسبه اختلاف مقدار لیر</h2>
   <label>مبلغ سرمایه (تومان):</label>
-  <input type="number" id="investment" value="100000000">
+  <input type="text" id="investment" value="100000000">
 
   <label>نرخ لیر ارزان‌تر:</label>
   <input type="number" id="lowRate" value="2100">
@@ -65,6 +65,37 @@
     let raw = investmentInput.value.replace(/,/g, '');
     if (!isNaN(raw)) {
       investmentInput.value = Number(raw).toLocaleString('fa-IR');
+    }
+  });
+
+  function getCleanNumber(input) {
+    return parseFloat(input.replace(/,/g, ''));
+  }
+
+  function calculate() {
+    const T = getCleanNumber(document.getElementById('investment').value);
+    const rLow = parseFloat(document.getElementById('lowRate').value);
+    const rHigh = parseFloat(document.getElementById('highRate').value);
+
+    if (T && rLow && rHigh && rLow < rHigh) {
+      const deltaL = T * (1 / rLow - 1 / rHigh);
+      document.getElementById('result').innerHTML =
+        تفاوت مقدار لیر: <strong>${deltaL.toFixed(2)}</strong> لیر;
+    } else {
+      document.getElementById('result').innerHTML =
+        "لطفاً اعداد معتبر وارد کنید (نرخ پایین‌تر باید کمتر از نرخ بالاتر باشد).";
+    }
+  }
+</script>
+  <script>
+  const investmentInput = document.getElementById('investment');
+
+  investmentInput.addEventListener('input', () => {
+    let raw = investmentInput.value.replace(/,/g, '').replace(/\D/g, '');
+    if (!isNaN(raw) && raw !== "") {
+      investmentInput.value = Number(raw).toLocaleString('fa-IR');
+    } else {
+      investmentInput.value = "";
     }
   });
 
