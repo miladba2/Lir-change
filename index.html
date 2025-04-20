@@ -58,5 +58,34 @@
       }
     }
   </script>
+  <script>
+  const investmentInput = document.getElementById('investment');
+
+  investmentInput.addEventListener('input', () => {
+    let raw = investmentInput.value.replace(/,/g, '');
+    if (!isNaN(raw)) {
+      investmentInput.value = Number(raw).toLocaleString('fa-IR');
+    }
+  });
+
+  function getCleanNumber(input) {
+    return parseFloat(input.replace(/,/g, ''));
+  }
+
+  function calculate() {
+    const T = getCleanNumber(document.getElementById('investment').value);
+    const rLow = parseFloat(document.getElementById('lowRate').value);
+    const rHigh = parseFloat(document.getElementById('highRate').value);
+
+    if (T && rLow && rHigh && rLow < rHigh) {
+      const deltaL = T * (1 / rLow - 1 / rHigh);
+      document.getElementById('result').innerHTML =
+        تفاوت مقدار لیر: <strong>${deltaL.toFixed(2)}</strong> لیر;
+    } else {
+      document.getElementById('result').innerHTML =
+        "لطفاً اعداد معتبر وارد کنید (نرخ پایین‌تر باید کمتر از نرخ بالاتر باشد).";
+    }
+  }
+</script>
 </body>
 </html>
