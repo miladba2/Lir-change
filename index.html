@@ -53,7 +53,7 @@
       if (T && rLow && rHigh && rLow < rHigh) {
         const deltaL = T * (1 / rLow - 1 / rHigh);
         document.getElementById('result').innerHTML =
-          `تفاوت مقدار ارز: <strong>${deltaL.toFixed(2)}</strong> لیر`;
+          `تفاوت مقدار ارز: <strong>${deltaL.toFixed(2)}</strong> ارز`;
       } else {
         document.getElementById('result').innerHTML =
           "لطفاً اعداد معتبر وارد کنید (نرخ پایین‌تر باید کمتر از نرخ بالاتر باشد).";
